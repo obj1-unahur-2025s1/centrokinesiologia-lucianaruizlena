@@ -39,15 +39,14 @@ Estos tests deben ser independientes.
 
 
 ## 2. Rutinas.
-A cada paciente se le asigna una serie de aparatos a ser usados en un orden determinado, cuando acude a al centro a realizar una sesión. A esto lo llamaremos la _rutina_ asignada al cliente.  
+A cada paciente se le asigna una serie de aparatos a ser usados en un orden determinado, cuando acude al centro a realizar una sesión. A esto lo llamaremos la _rutina_ asignada al cliente.  
 Una rutina puede incluir que se utilice más de una vez el mismo aparato. Por ejemplo: una bicicleta, un minitramp, la misma bicicleta de nuevo, un magneto.  
 Cada vez que un paciente concurre al centro, realiza la rutina que tiene asignada.  
 A efectos de simplificar el programa, consideramos que cada paciente tiene "sus" aparatos asignados, y que cada vez que va al centro, usa los mismos. En el ejemplo, aunque el centro tenga 20 bicicletas, el paciente va a usar siempre la misma. 
 
 Requerimiento: 
 
-- Saber si un paciente puede hacer la rutina asignada, para lo cual hay que verificar que pueda utilizar todos
-los aparatos asignados al momento de iniciarla.
+- Saber si un paciente puede hacer la rutina asignada, para lo cual hay que verificar que pueda utilizar todos los aparatos asignados al momento de iniciarla.
 - Que el paciente realice una sesión completa: debe usar todos los aparatos incluidos en su rutina, en el orden indicado. 
 
 
@@ -70,12 +69,11 @@ Si usa dos veces el mismo aparato se cuenta dos veces, por ejemplo en la rutina:
 Tiene una condición adicional para saber si puede realizar una rutina o no: 
 al menos uno de los aparatos deben ser de color rojo.  
 Se debe agregar a la información que maneja el programa, el color de cada aparato. 
-Un buen valor inicial para el color de un aparato es el blanco.  
+Un buen valor inicial para el color de un aparato es el blanco.
 Un cliente caprichoso, además, en cada sesión realiza siempre _dos veces_ toda la rutina que tiene asignada. 
 
 - **Rápida Recuperación**:  
-Luego de aplicar su rutina, el nivel de dolor se decrementa en una cantidad configurable, 
-que es la misma para todos los pacientes de rápida recuperación. Un buen valor inicial es 3.
+Luego de aplicar su rutina, el nivel de dolor se decrementa en una cantidad configurable, que es la misma para todos los pacientes de rápida recuperación. Un buen valor inicial es 3.
 
 Requerimientos:
 - agregar estos tipos de pacientes
