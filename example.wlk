@@ -76,20 +76,48 @@ class Aparato {
   var property color = blanco
   method puedeUtilizarsePor(unPaciente)
   method usa(unPaciente)
+
+  method necesitaMantenimiento()
+  method hacerMantenimiento(){}
 }
 
 class Magneto inherits Aparato {
+  var puntosDeImantacion = 0
+
   override method puedeUtilizarsePor(unPaciente) = true 
   override method usa(unPaciente){
     unPaciente.bajarNivelDeDolorPor(0.9)
+    puntosDeImantacion = puntosDeImantacion - 1
+  }
+
+  override method necesitaMantenimiento() = puntosDeImantacion < 100
+
+  override method hacerMantenimiento() {
+    puntosDeImantacion = puntosDeImantacion + 500
   }
 }
 
 class Bicicleta inherits Aparato {
+  var vecesDeTornillosDesajustados = 0
+  var vecesPierdeAceite = 0
+  
   override method puedeUtilizarsePor(unPaciente) = unPaciente.edad() > 8
   override method usa(unPaciente){
+    if(unPaciente.nivelDeDolor() > 30){
+      vecesDeTornillosDesajustados = vecesDeTornillosDesajustados + 1 
+    } else (unPaciente.nivelDeDolor() > 30 && unPaciente.edad().between(30, 50)){
+      vecesDeTornillosDesajustados = vecesDeTornillosDesajustados + 1 
+      vecesPierdeAceite = vecesPierdeAceite + 1
+    }
     unPaciente.bajarNivelDeDolorEn(4)
     unPaciente.aumentarNivelDeFortalezaMuscular(3)
+  }
+
+  override method necesitaMantenimiento() = vecesDeTornillosDesajustados >= 10 || vecesPierdeAceite >= 5
+
+  override method hacerMantenimiento() {
+    vecesDeTornillosDesajustados = 0
+    vecesPierdeAceite = 0
   }
 }
 
@@ -99,15 +127,34 @@ class Minitramp inherits Aparato {
     var incremento = unPaciente.edad() * 0.10
     unPaciente.aumentarNivelDeFortalezaMuscular(incremento)
   }
+
+  override method necesitaMantenimiento() = false
 }
 
 object centroDeKinesiologia {
   const aparatos = #{}
   const pacientes = #{}
+  var visitasDelTecnico = 0
+
+  method agregar(unAparato) {
+    aparatos.add(unAparato)
+  }
+  method agregarPaciente(unPaciente) {
+    pacientes.add(unPaciente)
+  }
 
   method colorDe(unAparato) = unAparato.color() //para un solo aparato.
   method colorDeTodosLosAparatos() = aparatos.map({a => a.color()}) //para todos los aparatos.
 
   method pacientesMenoresDeOcho() = pacientes.filter({p => p.edad() < 8})
   method cantidadDePacientesSinCumplirSesion() = pacientes.filter({p => not p.puedeHacerRutina()})
+
+  method aparatosEstanEnOptimasCondiciones() = aparatos.all({a => not a.necesitaMantenimiento()})
+  method estaComplicado() = aparatos.count({a => a.necesitaMantenimiento()}) >= aparatos.size() / 2
+
+  method visitaDelTecnico(){
+    if (aparatos.necesitaMantenimiento()){
+      aparatos.forEach({a => a.hacerMantenimiento()})
+    }
+  } 
 }

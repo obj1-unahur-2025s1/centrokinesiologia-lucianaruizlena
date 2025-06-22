@@ -131,4 +131,11 @@ describe "Tests parte 1" {
     assert.equals(51, zoe.nivelDeFortalezaMuscular())
   }
 
+  test "La bici de Zoe es roja. Comprobación para el punto 4." {
+    const biciDeZoe = new Bicicleta(color = rojo)
+    centroDeKinesiologia.agregar(biciDeZoe)
+
+    assert.equals(rojo,centroDeKinesiologia.colorDe(biciDeZoe))
+  }
+
 }
