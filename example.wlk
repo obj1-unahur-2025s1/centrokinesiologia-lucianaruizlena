@@ -14,10 +14,7 @@ class Paciente {
       rutina.forEach({a => self.usarAparato(a)})
     }
   }
-
-
   /*----------------------------------------*/
-
 
   method puedeUtilizar(unAparato) = unAparato.puedeUtilizarsePor(self)
   
@@ -26,7 +23,6 @@ class Paciente {
       unAparato.usa(self)
     }
   }
-
   /*----------------------------------------*/
 
   method bajarNivelDeDolorPor(unPorcentaje) {
@@ -60,12 +56,14 @@ class Caprichoso inherits Paciente {
 }
 
 class RapidaRecuperacion inherits Paciente {
-  var property decremento = 3
   override method realizarRutina(){
     super()
-    nivelDeDolor = nivelDeDolor - decremento
+    nivelDeDolor = nivelDeDolor - decrementoDeRapidaRecuperacion.valor()
   }
+}
 
+object decrementoDeRapidaRecuperacion {
+  const property valor = 3
 }
 
 object blanco{}
@@ -82,7 +80,7 @@ class Aparato {
 }
 
 class Magneto inherits Aparato {
-  var puntosDeImantacion = 0
+  var puntosDeImantacion = 800
 
   override method puedeUtilizarsePor(unPaciente) = true 
   override method usa(unPaciente){
@@ -156,5 +154,5 @@ object centroDeKinesiologia {
     if (aparatos.necesitaMantenimiento()){
       aparatos.forEach({a => a.hacerMantenimiento()})
     }
-  } 
+  }
 }
